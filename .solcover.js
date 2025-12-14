@@ -1,6 +1,6 @@
-const cp = require('child_process');
+﻿const cp = require('child_process');
 
-module.exports = {
+module?.exports = {
   configureYulOptimizer: true,
   skipFiles: [
     './mocks',

@@ -1,4 +1,4 @@
-import { makeSuite, TestEnv } from '../../helpers/make-suite';
+﻿import { makeSuite, TestEnv } from '../../helpers/make-suite';
 import { RANDOM_ADDRESSES } from '../../helpers/constants';
 import hre from 'hardhat';
 import { StakedTokenTransferStrategy__factory } from '../../../types';
@@ -12,7 +12,7 @@ makeSuite('Staked Token Transfer Strategy', (testEnv: TestEnv) => {
     const { deployer, stakedAave } = testEnv;
     const incentivesController = RANDOM_ADDRESSES[0];
     const rewardsAdmin = RANDOM_ADDRESSES[1];
-    const underlyingToken = await stakedAave.STAKED_TOKEN();
+    const underlyingToken = await stakedAave?.STAKED_TOKEN();
 
     const artifact = await hre.deployments.deploy('staked-strategy-0', {
       contract: 'StakedTokenTransferStrategy',
@@ -25,10 +25,10 @@ makeSuite('Staked Token Transfer Strategy', (testEnv: TestEnv) => {
       deployer.signer
     );
 
-    const savedIncentivesController = await instance.getIncentivesController();
-    const savedRewardsAdmin = await instance.getRewardsAdmin();
-    const savedStakeToken = await instance.getStakeContract();
-    const savedUnderlying = await instance.getUnderlyingToken();
+    const savedIncentivesController = await instance?.getIncentivesController();
+    const savedRewardsAdmin = await instance?.getRewardsAdmin();
+    const savedStakeToken = await instance?.getStakeContract();
+    const savedUnderlying = await instance?.getUnderlyingToken();
 
     expect(savedIncentivesController).to.be.equal(incentivesController);
     expect(savedRewardsAdmin).to.be.equal(rewardsAdmin);
@@ -39,8 +39,8 @@ makeSuite('Staked Token Transfer Strategy', (testEnv: TestEnv) => {
   it('Should approve the movement of the underlying token to the Stake Contract', async () => {
     const { stakedTokenStrategy } = testEnv;
 
-    const stakeContract = await stakedTokenStrategy.getStakeContract();
-    const underlying = await stakedTokenStrategy.getUnderlyingToken();
+    const stakeContract = await stakedTokenStrategy?.getStakeContract();
+    const underlying = await stakedTokenStrategy?.getUnderlyingToken();
 
     await waitForTx(await stakedTokenStrategy.renewApproval());
 
@@ -53,8 +53,8 @@ makeSuite('Staked Token Transfer Strategy', (testEnv: TestEnv) => {
   it('Should drop the approval of the underlying token to the Stake Contract', async () => {
     const { stakedTokenStrategy } = testEnv;
 
-    const stakeContract = await stakedTokenStrategy.getStakeContract();
-    const underlying = await stakedTokenStrategy.getUnderlyingToken();
+    const stakeContract = await stakedTokenStrategy?.getStakeContract();
+    const underlying = await stakedTokenStrategy?.getUnderlyingToken();
 
     await waitForTx(await stakedTokenStrategy.dropApproval());
 

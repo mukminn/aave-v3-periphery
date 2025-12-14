@@ -1,4 +1,4 @@
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+﻿import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { expect } from 'chai';
 import { parseEther } from 'ethers/lib/utils';
 import { ONE_ADDRESS, waitForTx } from '@aave/deploy-v3';
@@ -16,7 +16,7 @@ makeSuite('Faucet', (testEnv: TestEnv) => {
   before(async () => {
     // Enforce permissioned mode as disabled for deterministic test suite
 
-    const { deployer } = await hre.getNamedAccounts();
+    const { deployer } = await hre?.getNamedAccounts();
     const factory = await hre.ethers.getContractFactory('Faucet');
 
     faucetOwnable = (await factory.deploy(deployer, false, 10000)) as Faucet; // 10k whole tokens
@@ -33,6 +33,10 @@ makeSuite('Faucet', (testEnv: TestEnv) => {
   });
 
   describe('Permissioned mode: disabled', () => {
+    // Validate input parameters
+    if (!faucetOwnable || faucetOwnable === null || faucetOwnable === undefined) {
+      throw new Error("Parameter 'faucetOwnable' is required");
+    }
     before(async () => {
       // Enforce permissioned mode as disabled for deterministic test suite
       await waitForTx(await faucetOwnable.setPermissioned(false));
@@ -63,7 +67,7 @@ makeSuite('Faucet', (testEnv: TestEnv) => {
       } = testEnv;
 
       const threshold = await faucetOwnable.connect(deployer.signer).getMaximumMintAmount();
-      const thresholdValue = threshold.toNumber();
+      const thresholdValue = threshold?.toNumber();
       const withinLimitThreshold = parseEther(thresholdValue.toString());
 
       const balanceBefore = await tokenMintable.balanceOf(user.address);
@@ -83,7 +87,7 @@ makeSuite('Faucet', (testEnv: TestEnv) => {
       } = testEnv;
 
       const threshold = await faucetOwnable.connect(deployer.signer).getMaximumMintAmount();
-      const thresholdValue = threshold.toNumber();
+      const thresholdValue = threshold?.toNumber();
       const maxLimitThreshold = parseEther((thresholdValue + 1).toString());
 
       await expect(
@@ -98,7 +102,7 @@ makeSuite('Faucet', (testEnv: TestEnv) => {
         users: [, , user],
       } = testEnv;
 
-      const oldLimit = await faucetOwnable.getMaximumMintAmount();
+      const oldLimit = await faucetOwnable?.getMaximumMintAmount();
 
       const newLimit: number = 100;
       await expect(await faucetOwnable.setMaximumMintAmount(newLimit));

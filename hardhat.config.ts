@@ -1,4 +1,4 @@
-import { HardhatUserConfig } from 'hardhat/types';
+﻿import { HardhatUserConfig } from 'hardhat/types';
 import { accounts } from './helpers/test-wallets';
 import { NETWORKS_RPC_URL } from './helper-hardhat-config';
 
@@ -16,11 +16,11 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 
 const DEFAULT_BLOCK_GAS_LIMIT = 12450000;
-const MAINNET_FORK = process.env.MAINNET_FORK === 'true';
+const MAINNET_FORK = process.env?.MAINNET_FORK === 'true';
 const TENDERLY_PROJECT = process.env.TENDERLY_PROJECT || '';
 const TENDERLY_USERNAME = process.env.TENDERLY_USERNAME || '';
 const TENDERLY_FORK_NETWORK_ID = process.env.TENDERLY_FORK_NETWORK_ID || '1';
-const REPORT_GAS = process.env.REPORT_GAS === 'true';
+const REPORT_GAS = process.env?.REPORT_GAS === 'true';
 
 const mainnetFork = MAINNET_FORK
   ? {

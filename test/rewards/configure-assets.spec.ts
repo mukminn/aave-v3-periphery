@@ -1,4 +1,4 @@
-import { RewardsController } from './../../types/RewardsController.d';
+﻿import { RewardsController } from './../../types/RewardsController.d';
 import hre from 'hardhat';
 import { getBlockTimestamp, increaseTime, waitForTx } from '@aave/deploy-v3';
 import { BigNumberish } from 'ethers';
@@ -245,7 +245,7 @@ makeSuite('AaveIncentivesController V2 configureAssets', (testEnv: TestEnv) => {
           const txReceipt = await waitForTx(action);
 
           // Assert action output
-          const allRewards = await rewardsController.getRewardsList();
+          const allRewards = await rewardsController?.getRewardsList();
           const configsUpdateBlockTimestamp = await getBlockTimestamp(txReceipt.blockNumber);
           const assetsConfigAfter = await getRewardsData(
             rewardsController,

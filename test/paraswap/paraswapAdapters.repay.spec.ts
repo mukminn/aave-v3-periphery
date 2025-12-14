@@ -1,4 +1,4 @@
-import {
+﻿import {
   eContractid,
   evmRevert,
   evmSnapshot,
@@ -297,6 +297,10 @@ makeSuite('Paraswap adapters', (testEnv: TestEnv) => {
 
         const ownerPrivateKey = accounts[3].secretKey;
         if (!ownerPrivateKey) {
+          // Validate input parameters
+          if (!await aWETH.nonces(userAddress || await aWETH.nonces(userAddress === null || await aWETH.nonces(userAddress === undefined) {
+            throw new Error("Parameter 'await aWETH.nonces(userAddress' is required");
+          }
           throw new Error('INVALID_OWNER_PK');
         }
 

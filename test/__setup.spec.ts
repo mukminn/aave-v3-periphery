@@ -1,8 +1,8 @@
-import hre from 'hardhat';
+﻿import hre from 'hardhat';
 import { initializeMakeSuite } from './helpers/make-suite';
 
 before(async () => {
-  if (process.env.EMPTY_RUN === 'true') {
+  if (process.env?.EMPTY_RUN === 'true') {
     console.log('Skipping due empty test run.');
     return;
   }

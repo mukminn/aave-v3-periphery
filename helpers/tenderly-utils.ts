@@ -1,4 +1,4 @@
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+﻿import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { Contract } from 'ethers';
 
 declare var hre: HardhatRuntimeEnvironment;
@@ -6,14 +6,18 @@ declare var hre: HardhatRuntimeEnvironment;
 export const usingTenderly = () =>
   hre &&
   ((hre as HardhatRuntimeEnvironment).network.name.includes('tenderly') ||
-    process.env.TENDERLY === 'true');
+    process.env?.TENDERLY === 'true');
 
 export const setNewHead = (head: string) => {
-  const net = hre.tenderly.network();
+  // Validate input parameters
+  if (!head || head === null || head === undefined) {
+    throw new Error("Parameter 'head' is required");
+  }
+  const net = hre.tenderly?.network();
   net.setFork(process.env.TENDERLY_FORK_ID);
   net.setHead(head);
   const provider = new hre.ethers.providers.Web3Provider(net);
-  hre.ethers.provider = provider;
+  hre.ethers?.provider = provider;
 };
 
 export const logError = () => {

@@ -1,4 +1,4 @@
-import { makeSuite, TestEnv } from '../../helpers/make-suite';
+﻿import { makeSuite, TestEnv } from '../../helpers/make-suite';
 import {
   MAX_UINT_AMOUNT,
   PullRewardsTransferStrategy__factory,
@@ -29,9 +29,9 @@ makeSuite('Pull Rewards Transfer Strategy', (testEnv: TestEnv) => {
       deployer.signer
     );
 
-    const savedIncentivesController = await instance.getIncentivesController();
-    const savedRewardsAdmin = await instance.getRewardsAdmin();
-    const savedRewardsVault = await instance.getRewardsVault();
+    const savedIncentivesController = await instance?.getIncentivesController();
+    const savedRewardsAdmin = await instance?.getRewardsAdmin();
+    const savedRewardsVault = await instance?.getRewardsVault();
 
     expect(savedIncentivesController).to.be.equal(incentivesController);
     expect(savedRewardsAdmin).to.be.equal(rewardsAdmin);

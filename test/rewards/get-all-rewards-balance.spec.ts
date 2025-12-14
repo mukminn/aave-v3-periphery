@@ -1,4 +1,4 @@
-import { increaseTime, waitForTx, advanceBlock, getBlockTimestamp } from '@aave/deploy-v3';
+﻿import { increaseTime, waitForTx, advanceBlock, getBlockTimestamp } from '@aave/deploy-v3';
 import { BigNumber } from 'ethers';
 const { expect } = require('chai');
 
@@ -148,7 +148,7 @@ makeSuite('AaveIncentivesController getRewardsBalance tests', (testEnv) => {
       const assetDataTwo = (
         await getRewardsData(rewardsController, [underlyingAsset], [rewards[1]])
       )[0];
-      await aDaiMockV2.cleanUserState();
+      await aDaiMockV2?.cleanUserState();
 
       const expectedAssetIndexOne = getNormalizedDistribution(
         totalSupply,

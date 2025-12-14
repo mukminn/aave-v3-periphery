@@ -1,4 +1,4 @@
-import { getBlockTimestamp, increaseTime, ONE_ADDRESS, waitForTx } from '@aave/deploy-v3';
+﻿import { getBlockTimestamp, increaseTime, ONE_ADDRESS, waitForTx } from '@aave/deploy-v3';
 import { BigNumberish } from 'ethers';
 import { makeSuite, TestEnv } from '../helpers/make-suite';
 import { CompareRules } from './helpers/comparator-engine';
@@ -88,7 +88,7 @@ makeSuite('AaveIncentivesController V2 setEmissionPerSecond', async (testEnv: Te
     const txReceipt = await waitForTx(action);
 
     // Assert action output
-    const allRewards = await rewardsController.getRewardsList();
+    const allRewards = await rewardsController?.getRewardsList();
     const configsUpdateBlockTimestamp = await getBlockTimestamp(txReceipt.blockNumber);
     const assetsConfigAfter = await getRewardsData(
       rewardsController,

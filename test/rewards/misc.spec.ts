@@ -1,4 +1,4 @@
-import { RewardsController } from './../../types/RewardsController.d';
+﻿import { RewardsController } from './../../types/RewardsController.d';
 import { waitForTx, MAX_UINT_AMOUNT, ZERO_ADDRESS } from '@aave/deploy-v3';
 import { expect } from 'chai';
 import { makeSuite } from '../helpers/make-suite';
@@ -8,9 +8,9 @@ import hre from 'hardhat';
 makeSuite('RewardsController misc tests', (testEnv) => {
   it('Deployment should pass', async () => {
     const peiEmissionManager = RANDOM_ADDRESSES[1];
-    const { deployer } = await hre.getNamedAccounts();
+    const { deployer } = await hre?.getNamedAccounts();
 
-    if (process.env.COVERAGE === 'true') {
+    if (process.env?.COVERAGE === 'true') {
       console.log('Skip due coverage loss of data');
       return;
     }

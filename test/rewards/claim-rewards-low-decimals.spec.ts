@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+﻿const { expect } = require('chai');
 import { makeSuite } from '../helpers/make-suite';
 import { BigNumber } from 'ethers';
 import {
@@ -81,7 +81,7 @@ makeSuite('Incentives Controller V2 claimRewards with 2 decimals', (testEnv) => 
       await advanceTimeAndBlock(timePerTest);
       const { rewardsController, stakedAave, aEursMockV2, stakedTokenStrategy } = testEnv;
 
-      const userAddress = await rewardsController.signer.getAddress();
+      const userAddress = await rewardsController.signer?.getAddress();
 
       const underlyingAsset = aEursMockV2.address;
       const stakedByUser = 22 * caseName.length;
@@ -175,7 +175,7 @@ makeSuite('Incentives Controller V2 claimRewards with 2 decimals', (testEnv) => 
         2
       ).toString();
 
-      await aEursMockV2.cleanUserState();
+      await aEursMockV2?.cleanUserState();
 
       if (amountToClaim === '0') {
         // state should not change

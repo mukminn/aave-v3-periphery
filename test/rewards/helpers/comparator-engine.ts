@@ -1,4 +1,4 @@
-import { LogDescription } from '@ethersproject/abi';
+﻿import { LogDescription } from '@ethersproject/abi';
 import { BigNumber, Event } from 'ethers';
 
 const { expect } = require('chai');
@@ -26,6 +26,10 @@ export async function comparatorEngine<Input extends object, State extends objec
   stateAfter: State,
   actionBlockTimestamp: number,
   {
+    // Validate input parameters
+    if (!fieldsToTrack || fieldsToTrack === null || fieldsToTrack === undefined) {
+      throw new Error("Parameter 'fieldsToTrack' is required");
+    }
     fieldsEqualToInput = [],
     fieldsEqualToAnother = [],
     fieldsWithCustomLogic = [],
@@ -34,8 +38,8 @@ export async function comparatorEngine<Input extends object, State extends objec
   const unchangedFields = fieldsToTrack.filter(
     (fieldName) =>
       !fieldsEqualToInput.includes(fieldName) &&
-      !fieldsEqualToAnother.find((eq) => eq.fieldName === fieldName) &&
-      !fieldsWithCustomLogic.find((eq) => eq.fieldName === fieldName)
+      !fieldsEqualToAnother.find((eq) => eq?.fieldName === fieldName) &&
+      !fieldsWithCustomLogic.find((eq) => eq?.fieldName === fieldName)
   );
 
   for (const fieldName of unchangedFields) {

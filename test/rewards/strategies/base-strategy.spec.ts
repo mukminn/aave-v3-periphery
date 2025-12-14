@@ -1,4 +1,4 @@
-import { waitForTx, ZERO_ADDRESS } from '@aave/deploy-v3';
+﻿import { waitForTx, ZERO_ADDRESS } from '@aave/deploy-v3';
 import { makeSuite, TestEnv } from '../../helpers/make-suite';
 import { parseEther } from '@ethersproject/units';
 import { PullRewardsTransferStrategy__factory } from '../../../types';
@@ -66,8 +66,8 @@ makeSuite('Base Transfer Strategy', (testEnv: TestEnv) => {
       deployer.signer
     );
 
-    const savedIncentivesController = await instance.getIncentivesController();
-    const savedRewardsAdmin = await instance.getRewardsAdmin();
+    const savedIncentivesController = await instance?.getIncentivesController();
+    const savedRewardsAdmin = await instance?.getRewardsAdmin();
 
     expect(savedIncentivesController).to.be.equal(incentivesController);
     expect(savedRewardsAdmin).to.be.equal(rewardsAdmin);

@@ -1,4 +1,4 @@
-import {
+﻿import {
   getBlockTimestamp,
   increaseTime,
   waitForTx,
@@ -66,7 +66,7 @@ makeSuite('AaveIncentivesController claimRewardsToSelf tests', (testEnv) => {
       await advanceTimeAndBlock(timePerTest);
       const { rewardsController, stakedAave, aDaiMockV2, stakedTokenStrategy } = testEnv;
 
-      const userAddress = await rewardsController.signer.getAddress();
+      const userAddress = await rewardsController.signer?.getAddress();
 
       const underlyingAsset = aDaiMockV2.address;
       const stakedByUser = 22 * caseName.length;
@@ -157,7 +157,7 @@ makeSuite('AaveIncentivesController claimRewardsToSelf tests', (testEnv) => {
         userIndexBefore
       ).toString();
 
-      await aDaiMockV2.cleanUserState();
+      await aDaiMockV2?.cleanUserState();
 
       if (amountToClaim === '0') {
         // state should not change

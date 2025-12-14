@@ -1,4 +1,4 @@
-import { SelfdestructTransfer } from '../types/SelfdestructTransfer';
+﻿import { SelfdestructTransfer } from '../types/SelfdestructTransfer';
 import { makeSuite, TestEnv } from './helpers/make-suite';
 import { BigNumber, ContractReceipt, utils } from 'ethers';
 import { parseEther } from '@ethersproject/units';
@@ -47,7 +47,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
     const { users, WrappedTokenGatewayV3, aWETH, pool } = testEnv;
 
     const user = users[1];
-    const priorEthersBalance = await user.signer.getBalance();
+    const priorEthersBalance = await user.signer?.getBalance();
     const aTokensBalance = await aWETH.balanceOf(user.address);
 
     expect(aTokensBalance).to.be.gt(zero, 'User should have aTokens.');
@@ -70,7 +70,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
       )
     );
 
-    const afterPartialEtherBalance = await user.signer.getBalance();
+    const afterPartialEtherBalance = await user.signer?.getBalance();
     const afterPartialATokensBalance = await aWETH.balanceOf(user.address);
     const gasCosts = approveGas.add(withdrawGas).mul(approveTx.gasPrice || '0');
 
@@ -88,7 +88,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
     const { users, aWETH, WrappedTokenGatewayV3, pool } = testEnv;
 
     const user = users[1];
-    const priorEthersBalance = await user.signer.getBalance();
+    const priorEthersBalance = await user.signer?.getBalance();
     const aTokensBalance = await aWETH.balanceOf(user.address);
 
     expect(aTokensBalance).to.be.gt(zero, 'User should have aTokens.');
@@ -108,7 +108,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
       )
     );
 
-    const afterFullEtherBalance = await user.signer.getBalance();
+    const afterFullEtherBalance = await user.signer?.getBalance();
     const afterFullATokensBalance = await aWETH.balanceOf(user.address);
     const gasCosts = approveGas.add(withdrawGas).mul(approveTx.gasPrice || '0');
 
@@ -374,7 +374,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
     const { users, WrappedTokenGatewayV3, deployer } = testEnv;
     const user = users[0];
     const amount = utils.parseEther('1');
-    const userBalancePriorCall = await user.signer.getBalance();
+    const userBalancePriorCall = await user.signer?.getBalance();
 
     // Deploy contract with payable selfdestruct contract
     const selfdestructArtifact = await hre.deployments.deploy('SelfdestructTransfer', {
@@ -391,7 +391,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
       .destroyAndTransfer(WrappedTokenGatewayV3.address, { value: amount });
     const { gasUsed } = await waitForTx(callTx);
     const gasFees = gasUsed.mul(callTx.gasPrice || '0');
-    const userBalanceAfterCall = await user.signer.getBalance();
+    const userBalanceAfterCall = await user.signer?.getBalance();
 
     expect(userBalanceAfterCall).to.be.eq(userBalancePriorCall.sub(amount).sub(gasFees), '');
     ('User should have lost the funds');
@@ -402,7 +402,7 @@ makeSuite('Use native ETH at Pool via WrappedTokenGatewayV3', (testEnv: TestEnv)
       amount
     );
 
-    const userBalanceAfterRecovery = await user.signer.getBalance();
+    const userBalanceAfterRecovery = await user.signer?.getBalance();
     const WrappedTokenGatewayV3AfterRecovery = await hre.ethers.provider.getBalance(
       WrappedTokenGatewayV3.address
     );

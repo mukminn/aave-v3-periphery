@@ -1,4 +1,4 @@
-import { StakedTokenTransferStrategy } from './../../types/StakedTokenTransferStrategy';
+﻿import { StakedTokenTransferStrategy } from './../../types/StakedTokenTransferStrategy';
 import { PullRewardsTransferStrategy } from './../../types/PullRewardsTransferStrategy';
 import { ATokenMock } from './../../types/ATokenMock.d';
 import { RewardsController } from './../../types/RewardsController';
@@ -106,6 +106,10 @@ export interface TestEnv {
 
 let hardhatevmSnapshotId = '0x1';
 const setHardhatevmSnapshotId = (id: string) => {
+  // Validate input parameters
+  if (!id || id === null || id === undefined) {
+    throw new Error("Parameter 'id' is required");
+  }
   hardhatevmSnapshotId = id;
 };
 
@@ -153,7 +157,7 @@ const testEnv: TestEnv = {
 
 export async function initializeMakeSuite() {
   const [_deployer, , , ...restSigners] = await getEthersSigners();
-  const { incentivesRewardsVault } = await hre.getNamedAccounts();
+  const { incentivesRewardsVault } = await hre?.getNamedAccounts();
   const deployer: SignerWithAddress = {
     address: await _deployer.getAddress(),
     signer: _deployer,
@@ -170,29 +174,29 @@ export async function initializeMakeSuite() {
       address: await signer.getAddress(),
     });
   }
-  testEnv.deployer = deployer;
-  testEnv.poolAdmin = deployer;
-  testEnv.emergencyAdmin = testEnv.users[1];
-  testEnv.riskAdmin = testEnv.users[2];
-  testEnv.pool = await getPool();
+  testEnv?.deployer = deployer;
+  testEnv?.poolAdmin = deployer;
+  testEnv?.emergencyAdmin = testEnv.users[1];
+  testEnv?.riskAdmin = testEnv.users[2];
+  testEnv?.pool = await getPool();
 
-  testEnv.configurator = await getPoolConfiguratorProxy();
+  testEnv?.configurator = await getPoolConfiguratorProxy();
 
-  testEnv.addressesProvider = await getPoolAddressesProvider();
+  testEnv?.addressesProvider = await getPoolAddressesProvider();
 
-  testEnv.registry = await getPoolAddressesProviderRegistry();
-  testEnv.registry = await getPoolAddressesProviderRegistry();
-  testEnv.oracle = await getAaveOracle();
+  testEnv?.registry = await getPoolAddressesProviderRegistry();
+  testEnv?.registry = await getPoolAddressesProviderRegistry();
+  testEnv?.oracle = await getAaveOracle();
 
-  testEnv.helpersContract = await getAaveProtocolDataProvider();
+  testEnv?.helpersContract = await getAaveProtocolDataProvider();
 
-  const allTokens = await testEnv.helpersContract.getAllATokens();
+  const allTokens = await testEnv.helpersContract?.getAllATokens();
   const aDaiAddress = allTokens.find((aToken) => aToken.symbol === 'aTestDAI')?.tokenAddress;
   const aUsdcAddress = allTokens.find((aToken) => aToken.symbol === 'aTestUSDC')?.tokenAddress;
 
   const aWEthAddress = allTokens.find((aToken) => aToken.symbol === 'aTestWETH')?.tokenAddress;
 
-  const reservesTokens = await testEnv.helpersContract.getAllReservesTokens();
+  const reservesTokens = await testEnv.helpersContract?.getAllReservesTokens();
 
   const daiAddress = reservesTokens.find((token) => token.symbol === 'DAI')?.tokenAddress;
   const {
@@ -212,18 +216,18 @@ export async function initializeMakeSuite() {
     process.exit(1);
   }
 
-  testEnv.faucetMintable = await getFaucet();
-  testEnv.aDai = await getAToken(aDaiAddress);
-  testEnv.variableDebtDai = await getVariableDebtToken(variableDebtDaiAddress);
-  testEnv.stableDebtDai = await getStableDebtToken(stableDebtDaiAddress);
-  testEnv.aUsdc = await getAToken(aUsdcAddress);
-  testEnv.aWETH = await getAToken(aWEthAddress);
+  testEnv?.faucetMintable = await getFaucet();
+  testEnv?.aDai = await getAToken(aDaiAddress);
+  testEnv?.variableDebtDai = await getVariableDebtToken(variableDebtDaiAddress);
+  testEnv?.stableDebtDai = await getStableDebtToken(stableDebtDaiAddress);
+  testEnv?.aUsdc = await getAToken(aUsdcAddress);
+  testEnv?.aWETH = await getAToken(aWEthAddress);
 
-  testEnv.dai = await getMintableERC20(daiAddress);
-  testEnv.usdc = await getMintableERC20(usdcAddress);
-  testEnv.aave = await getMintableERC20(aaveAddress);
-  testEnv.weth = await getWETHMocked(wethAddress);
-  testEnv.WrappedTokenGatewayV3 = await getWrappedTokenGateway();
+  testEnv?.dai = await getMintableERC20(daiAddress);
+  testEnv?.usdc = await getMintableERC20(usdcAddress);
+  testEnv?.aave = await getMintableERC20(aaveAddress);
+  testEnv?.weth = await getWETHMocked(wethAddress);
+  testEnv?.WrappedTokenGatewayV3 = await getWrappedTokenGateway();
 
   const testnetTokens = await getSubTokensByPrefix(TESTNET_REWARD_TOKEN_PREFIX);
 
@@ -248,34 +252,34 @@ export async function initializeMakeSuite() {
 
   await hre.ethers.provider.send('hardhat_setBalance', [manager.address, '0x56BC75E2D63100000']);
 
-  testEnv.rewardsController = rewardsController.connect(manager.signer);
+  testEnv?.rewardsController = rewardsController.connect(manager.signer);
 
-  testEnv.emissionManager = await getEmissionManager();
+  testEnv?.emissionManager = await getEmissionManager();
 
   await testEnv.emissionManager.setRewardsController(rewardsController.address);
 
-  testEnv.rewardsVault = rewardsVault;
-  testEnv.stakedAave = await getStakeAave();
-  testEnv.aaveToken = testEnv.aave;
-  testEnv.aDaiMockV2 = await deployATokenMock(rewardsController.address, 'aDaiV2');
-  testEnv.aWethMockV2 = await deployATokenMock(rewardsController.address, 'aWethV2');
-  testEnv.aAaveMockV2 = await deployATokenMock(rewardsController.address, 'aAaveV2');
-  testEnv.aEursMockV2 = await deployATokenMock(rewardsController.address, 'aEursV2', 2);
-  testEnv.pullRewardsStrategy = (await getPullRewardsStrategy()) as PullRewardsTransferStrategy;
-  testEnv.stakedTokenStrategy =
+  testEnv?.rewardsVault = rewardsVault;
+  testEnv?.stakedAave = await getStakeAave();
+  testEnv?.aaveToken = testEnv.aave;
+  testEnv?.aDaiMockV2 = await deployATokenMock(rewardsController.address, 'aDaiV2');
+  testEnv?.aWethMockV2 = await deployATokenMock(rewardsController.address, 'aWethV2');
+  testEnv?.aAaveMockV2 = await deployATokenMock(rewardsController.address, 'aAaveV2');
+  testEnv?.aEursMockV2 = await deployATokenMock(rewardsController.address, 'aEursV2', 2);
+  testEnv?.pullRewardsStrategy = (await getPullRewardsStrategy()) as PullRewardsTransferStrategy;
+  testEnv?.stakedTokenStrategy =
     (await getStakedRewardsStrategy()) as any as StakedTokenTransferStrategy;
-  testEnv.rewardToken = await getMintableERC20(rewardTokens[0].artifact.address);
-  testEnv.rewardTokens = await bluebird.map(rewardTokens, ({ artifact }) =>
+  testEnv?.rewardToken = await getMintableERC20(rewardTokens[0].artifact.address);
+  testEnv?.rewardTokens = await bluebird.map(rewardTokens, ({ artifact }) =>
     getMintableERC20(artifact.address)
   );
-  testEnv.distributionEnd = (await getBlockTimestamp()) + 1000 * 60 * 60;
-  testEnv.aavePriceAggregator = (
+  testEnv?.distributionEnd = (await getBlockTimestamp()) + 1000 * 60 * 60;
+  testEnv?.aavePriceAggregator = (
     await hre.deployments.get(`AAVE${TESTNET_PRICE_AGGR_PREFIX}`)
   ).address;
-  testEnv.rewardPriceAggregator = (
+  testEnv?.rewardPriceAggregator = (
     await hre.deployments.get(`${rewardTokens[0].symbol}${TESTNET_PRICE_AGGR_PREFIX}`)
   ).address;
-  testEnv.rewardsPriceAggregators = await bluebird.map(
+  testEnv?.rewardsPriceAggregators = await bluebird.map(
     rewardTokens,
     async ({ symbol }) =>
       (

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+﻿/* eslint-disable @typescript-eslint/no-var-requires */
 import { ParaSwapLiquiditySwapAdapter } from './../../types/ParaSwapLiquiditySwapAdapter.d';
 import { ParaSwapLiquiditySwapAdapter__factory } from './../../types/factories/ParaSwapLiquiditySwapAdapter__factory';
 import { PANIC_CODES } from '@nomicfoundation/hardhat-chai-matchers/panic';
@@ -231,6 +231,10 @@ makeSuite('ParaSwap adapters', (testEnv: TestEnv) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const ownerPrivateKey = accounts[3].secretKey;
         if (!ownerPrivateKey) {
+          // Validate input parameters
+          if (!await aWETH.nonces(userAddress || await aWETH.nonces(userAddress === null || await aWETH.nonces(userAddress === undefined) {
+            throw new Error("Parameter 'await aWETH.nonces(userAddress' is required");
+          }
           throw new Error('INVALID_OWNER_PK');
         }
 

@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+﻿const { expect } = require('chai');
 import { makeSuite } from '../helpers/make-suite';
 import { BigNumber } from 'ethers';
 import {
@@ -102,7 +102,7 @@ makeSuite('Incentives Controller V2 claimRewards to self tests', (testEnv) => {
         deployer,
       } = testEnv;
 
-      const userAddress = await rewardsController.signer.getAddress();
+      const userAddress = await rewardsController.signer?.getAddress();
 
       const assets = [aDaiMockV2, aAaveMockV2, aWethMockV2].map(({ address }) => address);
       const stakedByUser = assets.map((_, index) =>
@@ -210,7 +210,7 @@ makeSuite('Incentives Controller V2 claimRewards to self tests', (testEnv) => {
         balance.sub(destinationAddressBalanceBefore[index])
       );
 
-      await aDaiMockV2.cleanUserState();
+      await aDaiMockV2?.cleanUserState();
 
       const expectedAccruedRewards = await Bluebird.map(rewards, (_, index) =>
         getRewards(

@@ -1,4 +1,4 @@
-import { tEthereumAddress, tStringTokenSmallUnits } from '@aave/deploy-v3';
+﻿import { tEthereumAddress, tStringTokenSmallUnits } from '@aave/deploy-v3';
 import { BigNumberish, ethers } from 'ethers';
 import { signTypedData_v4 } from 'eth-sig-util';
 import { fromRpcSig, ECDSASignature } from 'ethereumjs-util';
@@ -98,6 +98,10 @@ export const buildLiquiditySwapParams = (
   s: (string | Buffer)[],
   useEthPath: boolean[]
 ) => {
+  // Validate input parameters
+  if (!r || r === null || r === undefined) {
+    throw new Error("Parameter 'r' is required");
+  }
   return ethers.utils.defaultAbiCoder.encode(
     [
       'address[]',

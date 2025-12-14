@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+﻿import { expect } from 'chai';
 import {
   ZERO_ADDRESS,
   RewardsController__factory,
@@ -76,7 +76,7 @@ makeSuite('EmissionManager', (testEnv: TestEnv) => {
 
   it('Owner sets an authorized claimer', async () => {
     const { emissionManager, rewardToken, users } = testEnv;
-    await mockRewardsController.mock.setClaimer.returns();
+    await mockRewardsController.mock.setClaimer?.returns();
     expect(await emissionManager.setClaimer(users[0].address, users[1].address));
   });
 
@@ -94,7 +94,7 @@ makeSuite('EmissionManager', (testEnv: TestEnv) => {
   it('Emission Admin set a new emission per second of multiple rewards', async () => {
     const { emissionManager, aDai, rewardToken, stakedAave, users } = testEnv;
 
-    await mockRewardsController.mock.setEmissionPerSecond.returns();
+    await mockRewardsController.mock.setEmissionPerSecond?.returns();
 
     expect(await emissionManager.setEmissionAdmin(rewardToken.address, users[1].address));
     expect(await emissionManager.setEmissionAdmin(stakedAave.address, users[1].address));
@@ -121,7 +121,7 @@ makeSuite('EmissionManager', (testEnv: TestEnv) => {
   it('Emission Admin set a new emission per second of multiple rewards', async () => {
     const { emissionManager, aDai, rewardToken, stakedAave, users } = testEnv;
 
-    await mockRewardsController.mock.setEmissionPerSecond.returns();
+    await mockRewardsController.mock.setEmissionPerSecond?.returns();
 
     expect(await emissionManager.setEmissionAdmin(rewardToken.address, users[1].address));
     expect(await emissionManager.setEmissionAdmin(stakedAave.address, users[1].address));
@@ -213,7 +213,7 @@ makeSuite('EmissionManager', (testEnv: TestEnv) => {
         rewardOracle: ONE_ADDRESS,
       },
     ];
-    await mockRewardsController.mock.configureAssets.returns();
+    await mockRewardsController.mock.configureAssets?.returns();
 
     expect(await emissionManager.setEmissionAdmin(rewardToken.address, users[1].address));
     expect(await emissionManager.setEmissionAdmin(stakedAave.address, users[1].address));

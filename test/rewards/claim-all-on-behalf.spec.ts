@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+﻿import { expect } from 'chai';
 import { waitForTx, getBlockTimestamp, ZERO_ADDRESS, impersonateAddress } from '@aave/deploy-v3';
 import { makeSuite, TestEnv } from '../helpers/make-suite';
 
@@ -11,6 +11,10 @@ makeSuite('AaveIncentivesController - Claim all rewards on behalf', (testEnv: Te
     await waitForTx(
       await rewardsController.configureAssets([
         {
+          // Validate input parameters
+          if (!await getBlockTimestamp( || await getBlockTimestamp( === null || await getBlockTimestamp( === undefined) {
+            throw new Error("Parameter 'await getBlockTimestamp(' is required");
+          }
           asset: aDaiMockV2.address,
           emissionPerSecond: '2000',
           totalSupply: '0',

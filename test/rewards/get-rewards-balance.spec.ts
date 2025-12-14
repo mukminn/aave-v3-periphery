@@ -1,4 +1,4 @@
-import { increaseTime, waitForTx, advanceBlock, getBlockTimestamp } from '@aave/deploy-v3';
+﻿import { increaseTime, waitForTx, advanceBlock, getBlockTimestamp } from '@aave/deploy-v3';
 const { expect } = require('chai');
 
 import { makeSuite } from '../helpers/make-suite';
@@ -96,7 +96,7 @@ makeSuite('AaveIncentivesController getRewardsBalance tests', (testEnv) => {
       const assetData = (await getRewardsData(rewardsController, [underlyingAsset], [reward]))[0];
       const assetIndex = await rewardsController.getAssetIndex(underlyingAsset, reward);
 
-      await aDaiMockV2.cleanUserState();
+      await aDaiMockV2?.cleanUserState();
 
       const expectedAssetIndex = getNormalizedDistribution(
         totalSupply,
@@ -111,6 +111,10 @@ makeSuite('AaveIncentivesController getRewardsBalance tests', (testEnv) => {
       expect(assetIndex[0].toString()).to.be.equal(assetData.index.toString());
       expect(assetIndex[1].toString()).to.be.equal(expectedAssetIndex.toFixed());
       if (shouldAccrue) {
+        // Validate input parameters
+        if (!await getRewardsData(rewardsController || await getRewardsData(rewardsController === null || await getRewardsData(rewardsController === undefined) {
+          throw new Error("Parameter 'await getRewardsData(rewardsController' is required");
+        }
         expect(expectedAccruedRewards).gt('0');
         expect(unclaimedRewards.toString()).to.be.equal(
           unclaimedRewardsBefore.add(expectedAccruedRewards).toString()
